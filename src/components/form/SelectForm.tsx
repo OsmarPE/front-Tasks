@@ -1,15 +1,12 @@
 import {
     Select,
     SelectContent,
-    SelectItem,
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import { cn } from "@/lib/utils"
-import {  ReactNode } from "react"
+import { ReactNode } from "react"
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form"
-import { ChangeHandler, Control } from "react-hook-form"
-
+import { Control } from "react-hook-form"
 
 interface Props {
     className?: string,
@@ -17,10 +14,11 @@ interface Props {
     children: ReactNode,
     name: string,
     label: string,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     control: Control<any>
 }
 
-export default function SelectForm({ className = '', placeholder, children, name, label,control }: Props) {
+export default function SelectForm({ placeholder, children, name, label, control }: Props) {
     return (
         <div>
             <FormField
@@ -36,7 +34,7 @@ export default function SelectForm({ className = '', placeholder, children, name
                                 </SelectTrigger>
                             </FormControl>
                             <SelectContent>
-                               {children}
+                                {children}
                             </SelectContent>
                         </Select>
                         <FormMessage />

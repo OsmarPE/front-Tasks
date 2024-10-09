@@ -64,6 +64,8 @@ export default function TaskEditSheetBody({ task, priorities, hiddenbuttonRemove
         })
     }
 
+    console.log(search);
+    
     
     return (
         <Form form={form} onSubmit={onSubmit} className="mt-4">

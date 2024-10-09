@@ -1,9 +1,9 @@
-import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import {  useLocation, useNavigate } from "react-router-dom";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { priorityColors, taskInitialEdit } from "@/utils/helper";
-import {  priorityType, priorityTypeWithId, TaskTypeWithIdS } from "@/types";
+import {  priorityTypeWithId, TaskTypeWithIdS } from "@/types";
 import FormItem from "../form/FormItem";
 import { toast } from "sonner";
 import { Form } from "../form/Form";
@@ -25,7 +25,6 @@ interface Props {
 export default function TableEditTaskBody({ task, priorities }: Props) {
 
     const { pathname } = useLocation()
-    const [search, setSearch] = useSearchParams()
     
     const nav = useNavigate()
     const client = useQueryClient()

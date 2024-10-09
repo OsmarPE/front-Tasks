@@ -1,5 +1,5 @@
 
-import { TaskTypePopulateProyect, TaskTypeTable } from "@/types"
+import { TaskTypePopulateProyect } from "@/types"
 import { ColumnDef } from "@tanstack/react-table"
 import {
   DropdownMenu,
