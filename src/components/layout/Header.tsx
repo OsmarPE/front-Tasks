@@ -1,43 +1,65 @@
+import { useShowMenu } from "@/hooks/useShowMenu";
+import { cn } from "@/lib/utils";
+import { typeLink } from "@/types";
 import { DashboardIcon } from "@radix-ui/react-icons";
-import { BoxIcon, LogOutIcon } from "lucide-react";
-import { ForwardRefExoticComponent } from "react";
-import { NavLink } from "react-router-dom";
+import { BoxIcon, LogOutIcon, X } from "lucide-react";
+import { useLocation } from "react-router-dom";
+import LinkHeader from "../LinkHeader";
+import ButtonLogOut from "../buttons/ButtonLogOut";
+import { useEffect } from "react";
 
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const links: { href: string, Icon: ForwardRefExoticComponent<any> }[] = [
+const links:typeLink[] = [
   {
     href: 'main/projects',
-    Icon: DashboardIcon
+    Icon: DashboardIcon,
+    name:'Proyectos'
   },
   {
     href: 'main/list',
-    Icon: BoxIcon
+    Icon: BoxIcon,
+    name:'Lista de Tareas'
   },
   {
     href: 'logout',
-    Icon: LogOutIcon
+    Icon: LogOutIcon,
+    name:'Cerrar Sesión'
   },
 ]
-
 export default function Header() {
-  return (
-    <aside className="h-dvh hidden md:flex items-center justify-center border-r border-secondary">
-      <nav className="">
-        <ul className="grid gap-2 text-gray-300">
-          {
-            links.map(({ Icon, href },index) => (
-              <li key={index}>
-                <NavLink key={index}  className={({isActive}) => `block p-2 rounded-md hover:bg-primary/5 hover:text-primary/70 transition-all  duration-300 cursor-pointer ${isActive && 'text-primary'}` }
-                  to={`/${href}`}>
-                  <Icon width={22} height={22} />
-                </NavLink>
-              </li>
 
-            ))
-          }
-        </ul>
-      </nav>
-    </aside>
+  const location = useLocation()
+
+  const { showMenu, toggleMenu } = useShowMenu()
+
+  useEffect(() => {
+    if (showMenu) {
+      
+      toggleMenu()
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location]);
+
+
+  return (
+    <>
+      <div onClick={toggleMenu} className={cn("fixed inset-0 md:hidden transition-all",{ 'bg-black/0 pointer-events-none backdrop-blur-0 ':!showMenu, 'bg-black/10 pointer-events-auto backdrop-blur-sm z-0':showMenu, })}></div>
+      <aside role="menu" className={cn(" fixed md:static z-20  transition-all p-6 md:p-0 bottom-0 left-0 right-0 h-auto md:h-dvh bg-background md:flex md:items-center md:justify-center md:border-r md:border-secondary md:translate-y-0",{'translate-y-full':!showMenu,'translate-y-0':showMenu})}>
+        <button onClick={toggleMenu} className="mb-2 ml-auto block md:hidden p-2 text-gray-400 hover:text-black">
+          <X width={22} className="transition"/>
+        </button>
+        <nav className="">
+          <ul className="grid gap-2 text-gray-300">
+            {
+              links.map(({ Icon, href, name },index) => href !== 'logout' ? <LinkHeader key={index} Icon={Icon} href={href} name={name}/> : (
+                <li key={index}>
+                   <ButtonLogOut/>
+                </li>
+              ) )
+            }
+          </ul>
+        </nav>
+      </aside>
+    </>
   )
 }

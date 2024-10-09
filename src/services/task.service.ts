@@ -63,9 +63,13 @@ export const deleteTask = async(id:TaskTypeWithId['_id']) =>{
     }
 
 }
-export const getTasks = async() =>{
+export const getTasks = async(token:string) =>{
     try {
-        const { data } = await API(`/task`)
+        const { data } = await API(`/task`,{
+            headers:{
+                Authorization:`Bearer ${token}`
+            }
+        })
 
         return data.message as TaskTypeWithId[]
 
@@ -76,9 +80,13 @@ export const getTasks = async() =>{
     }
 
 }
-export const getTasksWithPopulateProyect = async() =>{
+export const getTasksWithPopulateProyect = async(token:string) =>{
     try {
-        const { data } = await API(`/task/all`)
+        const { data } = await API(`/task/all`,{
+            headers:{
+                Authorization:`Bearer ${token}`
+            }
+        })
 
         return data.message as TaskTypePopulateProyect[]
 

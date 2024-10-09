@@ -2,21 +2,21 @@ import Loading from "@/components/Loading";
 import { columns, Payment } from "@/components/payments/columns";
 import { TableListTasks } from "@/components/Table/TableListTasks";
 import TaskActions from "@/components/task/TaskActions";
+import useToken from "@/hooks/useToken";
 import { getPriorities } from "@/services/priority.service";
 import { getTasksWithPopulateProyect } from "@/services/task.service";
-import { TaskTypePopulateProyect, TaskTypeTable } from "@/types";
+import { TaskTypePopulateProyect} from "@/types";
 import { useQuery } from "@tanstack/react-query";
-import { ColumnDef } from "@tanstack/react-table";
-import { useLocation } from "react-router-dom";
 
 
 export default function TasksPage() {
 
-  const { pathname } = useLocation()
+
+  const { token } = useToken()
 
   const { data, isLoading } = useQuery({
     queryKey: ['tasks'],
-    queryFn: getTasksWithPopulateProyect
+    queryFn: () => getTasksWithPopulateProyect(token)
   })
 
 
@@ -38,7 +38,7 @@ export default function TasksPage() {
       <h2 className="font-bold text-2xl">Tareas</h2>
       <p className="text-gray-400">Podras observar la lista de forma general de cada una de las tareas</p>
       <div className="max-w-screen-lg mt-6">
-        {(isLoading && isLoadingP) ? <Loading/> : <TableListTasks columns={columns} data={tasks as Payment[]} />}
+        {(!token && isLoading && isLoadingP) ? <Loading/> : <TableListTasks columns={columns} data={tasks as Payment[]} />}
       </div>
 
       <TaskActions />

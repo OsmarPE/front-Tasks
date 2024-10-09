@@ -6,16 +6,23 @@ import { useLocation, useSearchParams } from "react-router-dom"
 import Modal from "../Modal"
 import ProjectRemove from "./ProjectRemove"
 import Loading from "../Loading"
+import useToken from "@/hooks/useToken"
+import ProjectEdit from "./ProjectEdit"
 
 export default function Projects() {
 
   const { pathname } = useLocation()
   const [search] = useSearchParams()
   const idProject = Boolean(search.get('id')) ?? false
+  const idProjectEdit = Boolean(search.get('editproject')) ?? false
+  const { token } = useToken()
+  
+  console.log(token);
+  
 
   const { data, isLoading } = useQuery({
     queryKey: ['projects'],
-    queryFn: getProjects,
+    queryFn: () => getProjects(token),
   })
   
 
@@ -34,6 +41,10 @@ export default function Projects() {
       
       <Modal open={idProject} pathname={pathname} title="¿Deseas eliminar este proyecto?" description="Estas apunto de eliminar un proyecto el cual no podra ser recuperado una vex eliminado">
           <ProjectRemove pathname={pathname}/>
+      </Modal>
+
+      <Modal open={idProjectEdit} pathname={pathname} title="¿Deseas eliminar este proyecto?" description="Estas apunto de eliminar un proyecto el cual no podra ser recuperado una vex eliminado">
+          <ProjectEdit/>
       </Modal>
     </>
   )

@@ -22,7 +22,7 @@ export default function Submenu({children,id}:Props) {
             {children}
             <DropdownMenuContent >
                 <DropdownMenuItem onClick={() => nav(`${pathname}?addTask=${id}`)}>Agregar Tarea</DropdownMenuItem>
-                <DropdownMenuItem>Editar</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => nav(`${pathname}?editproject=${id}`)}>Editar</DropdownMenuItem>
                 <DropdownMenuItem onClick={() => nav(`${pathname}?id=${id}`)}>Eliminar</DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>

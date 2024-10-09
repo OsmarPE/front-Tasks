@@ -1,20 +1,20 @@
 import * as React from 'react'
 import { useAuth } from '@clerk/clerk-react'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import Layout from '@/components/layout/Layout'
 
 export default function DashboardLayout() {
   const { userId, isLoaded } = useAuth()
   const navigate = useNavigate()
 
-  console.log('test', userId)
 
   React.useEffect(() => {
     if (isLoaded && !userId) {
-      navigate('/sign-in')
+      navigate('/')
     }
   }, [isLoaded])
 
   if (!isLoaded) return 'Loading...'
 
-  return <Outlet />
+  return <Layout/>
 }

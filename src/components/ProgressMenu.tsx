@@ -10,13 +10,15 @@ import { useQuery } from "@tanstack/react-query"
 import { getTasks } from "@/services/task.service"
 import { calculatePorcent, getCompletedTasks } from "@/lib/utils"
 import { datesGraphicType } from "@/types"
+import useToken from "@/hooks/useToken"
 
 export default function ProgressMenu() {
     
+    const { token } = useToken()
 
     const { data } = useQuery({
         queryKey:['tasksGraphic'],
-        queryFn:getTasks
+        queryFn:() => getTasks(token)
     })
     
     const total:number = data?.length ?? 0

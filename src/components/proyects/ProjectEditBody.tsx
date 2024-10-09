@@ -1,28 +1,31 @@
-import { projectInitial } from "@/utils/helper"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { Form } from "../form/Form"
-import FormItem from "../form/FormItem"
-import { ProjectType } from "@/types"
-import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { addProject } from "@/services/project.service"
 import { toast } from "sonner"
 import { useLocation, useNavigate } from "react-router-dom"
+import { projectInitial } from "@/utils/helper"
+import { ProjectType } from "@/types"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { editProject } from "@/services/project.service"
+import FormItem from "../form/FormItem"
+import { Form } from "../form/Form"
 import { Button } from "../ui/button"
-import useToken from "@/hooks/useToken"
 
-export default function ProjectFormAdd() {
+interface Props{
+    id:string,
+    name:string
+}
 
+export default function ProjectEditBody({id,name}:Props) {
+        
     const client = useQueryClient()
-
-    const { token } = useToken()
     
     const { pathname } = useLocation()
     const  nav = useNavigate()
     const { mutate } = useMutation({
-        mutationFn:addProject,
+        mutationFn:editProject,
         onSuccess:(data) =>{
             client.invalidateQueries({queryKey:['projects']})
+            client.invalidateQueries({queryKey:['projectEdit']})
             toast.success(data)
             nav(pathname,{replace:true})
         },
@@ -34,11 +37,11 @@ export default function ProjectFormAdd() {
     const form = useForm<Pick<ProjectType,'name'>>({
         resolver: zodResolver(projectInitial),
         defaultValues: {
-            name:''
+            name
         },
     })
     async function onSubmit(data:Pick<ProjectType,'name'>) {
-        mutate({name:data.name,token})
+        mutate({name:data.name,id})
     }
 
 
@@ -50,7 +53,7 @@ export default function ProjectFormAdd() {
             control={form.control}
             placeholder="Ej. Creación de un Banco para la empresa DG"
         />
-        <Button className="block ml-auto mt-4" type="submit">Agregar Proyecto</Button>
+        <Button className="block ml-auto mt-4" type="submit">Editar Proyecto</Button>
     </Form>
   )
 }

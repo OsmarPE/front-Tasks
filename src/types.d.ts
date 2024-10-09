@@ -44,3 +44,9 @@ export type TaskTypeTable = idType & Pick<TaskType,'taskName'|'completed'>
 
 export type datesGraphicType =  { completed:number,incompleted:number } 
 
+interface ShowMenuContextType {
+    showMenu: boolean;
+    toggleMenu: () => void;
+}
+
+type typeLink = { href: string, Icon: ForwardRefExoticComponent<any> , name:string}
