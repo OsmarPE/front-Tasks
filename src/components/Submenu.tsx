@@ -3,6 +3,7 @@ import {
     DropdownMenuContent,
     DropdownMenuItem
 } from "@/components/ui/dropdown-menu"
+import { Pencil, Plus, Trash } from "lucide-react"
 import { ReactNode } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 
@@ -21,9 +22,16 @@ export default function Submenu({children,id}:Props) {
         <DropdownMenu>
             {children}
             <DropdownMenuContent >
-                <DropdownMenuItem onClick={() => nav(`${pathname}?addTask=${id}`)}>Agregar Tarea</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => nav(`${pathname}?editproject=${id}`)}>Editar</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => nav(`${pathname}?id=${id}`)}>Eliminar</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => nav(`${pathname}?addTask=${id}`)} className="gap-2">
+                    <Plus className="size-4"/> Agregar Tarea
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => nav(`${pathname}?editproject=${id}`)} className="gap-2">
+                    <Pencil className="size-4" /> Editar
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => nav(`${pathname}?id=${id}`)} className="gap-2">
+                    <Trash className="size-4" />
+                    Eliminar
+                </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
 

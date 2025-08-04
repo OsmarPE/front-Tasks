@@ -53,10 +53,10 @@ export default function ProjectItem({ project }: Props) {
 
                             tasks.map(task => (
                                 <li key={task._id} className="flex items-center justify-between">
-                                    <span className="inline-flex items-center gap-2">
+                                    <span className="flex items-center gap-2">
                                         <div className={cn("size-1.5 rounded-full", { 'bg-green-400': task.completed, 'bg-red-500': !task.completed })}></div>
-                                        <Button asChild className="p-0 h-auto text-foreground font-normal" variant='link'>
-                                            <Link to={`${pathname}?editTask=${task._id}`}>
+                                        <Button asChild className="p-0 h-auto text-foreground font-normal flex-1" variant='link'>
+                                            <Link to={`${pathname}?editTask=${task._id}`} className="whitespace-break-spaces">
                                                 {task.taskName}
                                             </Link>
                                         </Button>

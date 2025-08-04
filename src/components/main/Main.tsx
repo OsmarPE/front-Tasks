@@ -41,7 +41,7 @@ export default function Main() {
           </Modal>
         </div>
       </div>
-      <p className="text-sm mt-3 " >Haz acompletado <span className="text-primary">2 proyectos de 4</span></p>
+      <p className="text-sm mt-3 text-gray-400" >Haz acompletado <span className="text-primary">2 proyectos de 4</span></p>
       <Projects />
       <TaskEditSheet open={showModalEditTask} />
 
