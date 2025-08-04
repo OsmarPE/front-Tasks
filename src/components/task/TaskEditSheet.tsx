@@ -2,7 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import SheetModal from "../sheet/SheetModal";
 import { getTaskById } from "@/services/task.service";
 import { useSearchParams } from "react-router-dom";
-import {  Loader2Icon } from "lucide-react";
 import TaskEditSheetBody from "./TaskEditSheetBody";
 import { getPriorities } from "@/services/priority.service";
 import TaskRemove from "./TaskRemove";
