@@ -6,6 +6,7 @@ import {  Loader2Icon } from "lucide-react";
 import TaskEditSheetBody from "./TaskEditSheetBody";
 import { getPriorities } from "@/services/priority.service";
 import TaskRemove from "./TaskRemove";
+import Loading from "../Loading";
 
 interface Props {
     open: boolean
@@ -31,7 +32,7 @@ export default function TaskEditSheet({open}:Props) {
     return (
         <SheetModal title="Editar Tarea" description="Puedes modificar o eliminar la informacion de la tarea" open={open}>
             {
-                isLoading ? <Loader2Icon className="animate-spin " /> : data ? <TaskEditSheetBody task={data} priorities={prorities} /> : null 
+                isLoading ? <Loading className="mt-4" /> : data ? <TaskEditSheetBody task={data} priorities={prorities} /> : null 
             }
 
           {showModalRemoveTask &&  <TaskRemove/>}
