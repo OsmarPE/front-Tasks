@@ -86,7 +86,7 @@ export default function ProjectItem({ project }: Props) {
                         <Progress value={porcent} className="h-1 mt-8" />
                         <div className="flex w-full items-center justify-between text-sm text-gray-400 mt-2">
                             <p>Progreso</p>
-                            <span>{porcent}%</span>
+                            <span>{porcent.toFixed(2)}%</span>
                         </div>
 
                     </CardFooter>
