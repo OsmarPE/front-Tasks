@@ -5,10 +5,16 @@ import { Button } from "../ui/button";
 import HeaderLanding from "./HeaderLanding";
 import { Link } from "react-router-dom";
 import { SignedOut, SignInButton, useAuth } from "@clerk/clerk-react";
+import HeroLight from "../../assets/front-task.png";
+import HeroDark from "../../assets/front-task-dark.png";
+import { useTheme } from "../theme-provider";
 
 export default function MainLanding() {
 
   const { isSignedIn } = useAuth()
+  const { theme } = useTheme()
+  
+  const Hero = theme === 'light' ? HeroLight : HeroDark
 
   return (
     <div>
@@ -42,7 +48,7 @@ export default function MainLanding() {
 
 
           <figure className="max-w-4xl p-1 border border-primary/20 rounded-lg mx-auto mt-10 relative overflow-hidden ">
-            <img src="./hero.png" className="w-full object-cover" alt="" />
+            <img src={Hero} className="w-full object-cover" alt="" />
           </figure>
         </Container>
       </main>
