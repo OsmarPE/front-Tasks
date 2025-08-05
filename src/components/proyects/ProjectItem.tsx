@@ -3,8 +3,8 @@ import Submenu from "../Submenu";
 import { Progress } from "../ui/progress";
 import { Button } from "../ui/button";
 import { EllipsisVerticalIcon } from "lucide-react";
-import { ProjectTypeWithId } from "@/types";
-import { Link, useLocation } from "react-router-dom";
+import { ProjectTypeWithId, TaskTypeWithIdItem } from "@/types";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { calculateTaskCompleted, cn, formatDate } from "@/lib/utils";
 import { Checkbox } from "../ui/checkbox";
 import {
@@ -15,6 +15,11 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { CheckedState } from "@radix-ui/react-checkbox";
+import { editProject } from "@/services/project.service";
+import { toast } from "sonner";
+import { updateTask } from "@/services/task.service";
 
 interface Props {
     project: ProjectTypeWithId
@@ -29,9 +34,45 @@ export default function ProjectItem({ project }: Props) {
     const taskSize = tasks.length
     const taskCompleted = calculateTaskCompleted(tasks)
     const porcent = taskSize > 0 ? (taskCompleted * 100) / taskSize : 0
-
     const dateTask = new Date(date)
     const isToday = dateTask.toLocaleDateString() === new Date().toLocaleDateString()    
+
+    const client = useQueryClient() 
+
+     const { mutate, isPending } = useMutation({
+       mutationFn: updateTask,
+       onError: (error) => {
+         console.log(error);
+       },
+       
+     });
+
+     
+    const handleChangeStatus = async (status: CheckedState, task: TaskTypeWithIdItem) => {
+       
+        mutate({
+            task:{
+                _id:task._id,
+                taskName:task.taskName,
+                priority:task.priority,
+                project:task.project,
+                completed:status as boolean
+            },
+            id:task._id
+        }, {
+            onSuccess:(data) =>{
+                  client.invalidateQueries({ queryKey: ["projects"] });
+                  client.removeQueries({ queryKey: ["editTask", task._id] });
+                  client.invalidateQueries({ queryKey: ["tasksGraphic"] });
+                toast.success(data)
+            },
+            onError:(error) => {
+                toast.error(error.message)
+            }
+        })
+        
+        
+    }
     
     return (
         <Card >
@@ -62,7 +103,7 @@ export default function ProjectItem({ project }: Props) {
                                         </Button>
                                     </span>
                                     <div>
-                                        <Checkbox disabled className="disabled:opacity-100" checked={task.completed} />
+                                        <Checkbox onCheckedChange={value => handleChangeStatus(value, task as TaskTypeWithIdItem)} className="disabled:opacity-100" defaultChecked={task.completed} disabled={isPending} />
                                     </div>
 
                                 </li>

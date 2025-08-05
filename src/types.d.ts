@@ -33,6 +33,8 @@ export type TaskTypePopulateProyect = TaskType & idType & {
     project: idType & ProjectType,
 }
 
+export type TaskTypeWithIdItem = TaskType & idType 
+
 export type TaskTypeWithIdAndString = idType & Pick<TaskType,'taskName'> 
 export type TaskTypeWithId = idType & TaskType 
 export type TaskTypeWithIdS = TaskType & idType
