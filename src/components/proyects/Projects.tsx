@@ -8,6 +8,7 @@ import ProjectRemove from "./ProjectRemove"
 import Loading from "../Loading"
 import useToken from "@/hooks/useToken"
 import ProjectEdit from "./ProjectEdit"
+import { useCallback, useMemo } from "react"
 
 export default function Projects() {
 
@@ -26,11 +27,21 @@ export default function Projects() {
   })
   
 
+  
+  
+ const projectsFinished = useMemo(() => {
+    if (!data) return 0
+    return data.filter(project => 
+      project.tasks && project.tasks.every(task => task.completed)
+    ).length
+  }, [data])
+  
   if (isLoading) return <Loading className="mt-4"/>
-
-
+  
+  
   if (data) return (
     <>
+     <p className="text-sm mt-3 text-gray-400" >Haz acompletado <span className="text-primary">{projectsFinished} proyectos de 4</span></p>
       <ProjectList>
         {
           data.map(project => (
