@@ -17,7 +17,7 @@ export default function Projects() {
   const idProjectEdit = Boolean(search.get('editproject')) ?? false
   const { token } = useToken()
   
-  console.log(token);
+  
   
 
   const { data, isLoading } = useQuery({

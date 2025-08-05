@@ -30,7 +30,7 @@ export default function ProjectEditBody({id,name}:Props) {
             nav(pathname,{replace:true})
         },
         onError:(error) => {
-            console.log(error);
+            toast.error(error.message)
         }
     })
 

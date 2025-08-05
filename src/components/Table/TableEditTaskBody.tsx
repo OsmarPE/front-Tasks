@@ -39,7 +39,7 @@ export default function TableEditTaskBody({ task, priorities }: Props) {
             nav(pathname,{replace:true})
         },
         onError: (error) => {
-            console.log(error);
+            toast.error(error.message)
         }
     })
 

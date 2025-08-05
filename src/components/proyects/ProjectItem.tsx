@@ -4,7 +4,7 @@ import { Progress } from "../ui/progress";
 import { Button } from "../ui/button";
 import { EllipsisVerticalIcon } from "lucide-react";
 import { ProjectTypeWithId, TaskTypeWithIdItem } from "@/types";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { calculateTaskCompleted, cn, formatDate } from "@/lib/utils";
 import { Checkbox } from "../ui/checkbox";
 import {
@@ -17,7 +17,6 @@ import {
 } from "@/components/ui/card"
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { CheckedState } from "@radix-ui/react-checkbox";
-import { editProject } from "@/services/project.service";
 import { toast } from "sonner";
 import { updateTask } from "@/services/task.service";
 
@@ -42,7 +41,7 @@ export default function ProjectItem({ project }: Props) {
      const { mutate, isPending } = useMutation({
        mutationFn: updateTask,
        onError: (error) => {
-         console.log(error);
+         toast.error(error.message)
        },
        
      });

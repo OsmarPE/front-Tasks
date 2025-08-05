@@ -29,7 +29,7 @@ export default function TaskFormAdd() {
             nav(pathname)
         },
         onError: (error) => {
-            console.log(error);
+            toast.error(error.message)
         }
     })
 

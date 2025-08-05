@@ -23,7 +23,7 @@ export default function TaskRemove() {
             nav(pathname,{replace:true})
         },
         onError:(error) => {
-            console.log(error.message);
+            toast.error(error.message)
         }
     })
 

@@ -40,7 +40,7 @@ export default function TaskEditSheetBody({ task, priorities, hiddenbuttonRemove
             nav(pathname,{replace:true})
         },
         onError: (error) => {
-            console.log(error);
+            toast.error(error.message)
         }
     })
 
@@ -64,7 +64,7 @@ export default function TaskEditSheetBody({ task, priorities, hiddenbuttonRemove
         })
     }
 
-    console.log(search);
+    
     
     
     return (
