@@ -8,7 +8,7 @@ import ProjectRemove from "./ProjectRemove"
 import Loading from "../Loading"
 import useToken from "@/hooks/useToken"
 import ProjectEdit from "./ProjectEdit"
-import { useCallback, useMemo } from "react"
+import { useMemo } from "react"
 
 export default function Projects() {
 

@@ -26,7 +26,7 @@ export default function TaskEditSheetBody({ task, priorities, hiddenbuttonRemove
 
 
     const { pathname } = useLocation()
-    const [search, setSearch] = useSearchParams()
+    const [_search, setSearch] = useSearchParams()
     const client = useQueryClient()
 
     const nav = useNavigate()
